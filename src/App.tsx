@@ -17,6 +17,7 @@ import EmployeeRoutes from './routes/EmployeeRoutes';
 
 // Components
 import ProtectedRoute from './components/rbac/ProtectedRoute';
+import LeaveRoutes from './routes/LeaveRoutes';
 
 function App() {
   return (
@@ -44,6 +45,15 @@ function App() {
               element={
                 <ProtectedRoute requiredRole="admin">
                   <EmployeeRoutes />
+                </ProtectedRoute>
+              }
+            />
+            
+            <Route
+              path="/leave/*"
+              element={
+                <ProtectedRoute>
+                  <LeaveRoutes />
                 </ProtectedRoute>
               }
             />

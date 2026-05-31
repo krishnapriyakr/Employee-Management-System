@@ -23,6 +23,36 @@ const sidebarItems: SidebarItem[] = [
     roles: ['admin'],
   },
   {
+    name: 'My Leaves',
+    path: '/leave/my-leaves',
+    icon: '📅',
+    roles: ['employee', 'admin'],
+  },
+  {
+    name: 'Apply Leave',
+    path: '/leave/apply',
+    icon: '✏️',
+    roles: ['employee', 'admin'],
+  },
+  {
+    name: 'Leave Balance',
+    path: '/leave/balance',
+    icon: '💰',
+    roles: ['employee', 'admin'],
+  },
+  {
+    name: 'Leave Requests',
+    path: '/leave/requests',
+    icon: '📋',
+    roles: ['admin'],
+  },
+  {
+    name: 'Leave Stats',
+    path: '/leave/statistics',
+    icon: '📈',
+    roles: ['admin'],
+  },
+  {
     name: 'My Profile',
     path: '/profile',
     icon: '👤',
