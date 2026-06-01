@@ -122,6 +122,10 @@ export const getLeaveStatistics = async (): Promise<any> => {
 // Admin: Approve leave request
 export const approveLeave = async (id: string, comments?: string): Promise<any> => {
   try {
+    if (!id || id === 'undefined' || id === 'null') {
+      throw new Error('Invalid leave request ID');
+    }
+    
     const response = await api.put(`/leave/${id}/approve`, { comments });
     return response.data;
   } catch (error: any) {
