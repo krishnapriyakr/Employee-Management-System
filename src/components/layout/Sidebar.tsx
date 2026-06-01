@@ -25,9 +25,36 @@ const sidebarItems: SidebarItem[] = [
     roles: ['admin'],
   },
   {
-    name: 'Leave Management',
+    name: 'Attendance',
     path: '#',
     icon: '📅',
+    roles: ['admin', 'employee'],
+    isDropdown: true,
+    dropdownItems: [
+      {
+        name: 'My Attendance',
+        path: '/attendance/my-attendance',
+        icon: '📋',
+        roles: ['employee', 'admin'],
+      },
+      // {
+      //   name: 'Attendance List',
+      //   path: '/attendance/list',
+      //   icon: '📊',
+      //   roles: ['admin'],
+      // },
+      // {
+      //   name: 'Manual Entry',
+      //   path: '/attendance/manual',
+      //   icon: '✏️',
+      //   roles: ['admin'],
+      // },
+    ],
+  },
+  {
+    name: 'Leave Management',
+    path: '#',
+    icon: '🏖️',
     roles: ['admin', 'employee'],
     isDropdown: true,
     dropdownItems: [

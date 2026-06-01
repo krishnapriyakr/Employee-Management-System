@@ -18,6 +18,7 @@ import EmployeeRoutes from './routes/EmployeeRoutes';
 // Components
 import ProtectedRoute from './components/rbac/ProtectedRoute';
 import LeaveRoutes from './routes/LeaveRoutes';
+import AttendanceRoutes from './routes/AttendanceRoutes';
 
 function App() {
   return (
@@ -49,6 +50,14 @@ function App() {
               }
             />
             
+            <Route
+              path="/attendance/*"
+              element={
+                <ProtectedRoute>
+                  <AttendanceRoutes />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/leave/*"
               element={
