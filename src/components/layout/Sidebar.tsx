@@ -26,30 +26,9 @@ const sidebarItems: SidebarItem[] = [
   },
   {
     name: 'Attendance',
-    path: '#',
+    path: '/attendance/my-attendance',
     icon: '📅',
     roles: ['admin', 'employee'],
-    isDropdown: true,
-    dropdownItems: [
-      {
-        name: 'My Attendance',
-        path: '/attendance/my-attendance',
-        icon: '📋',
-        roles: ['employee', 'admin'],
-      },
-      // {
-      //   name: 'Attendance List',
-      //   path: '/attendance/list',
-      //   icon: '📊',
-      //   roles: ['admin'],
-      // },
-      // {
-      //   name: 'Manual Entry',
-      //   path: '/attendance/manual',
-      //   icon: '✏️',
-      //   roles: ['admin'],
-      // },
-    ],
   },
   {
     name: 'Leave Management',
@@ -91,6 +70,39 @@ const sidebarItems: SidebarItem[] = [
     ],
   },
   {
+    name: 'Performance',
+    path: '#',
+    icon: '⭐',
+    roles: ['admin', 'employee'],
+    isDropdown: true,
+    dropdownItems: [
+      {
+        name: 'My Reviews',
+        path: '/performance/my-reviews',
+        icon: '📝',
+        roles: ['employee', 'admin'],
+      },
+      {
+        name: 'My Goals',
+        path: '/performance/my-goals',
+        icon: '🎯',
+        roles: ['employee', 'admin'],
+      },
+      {
+        name: 'Performance Dashboard',
+        path: '/performance/admin/dashboard',
+        icon: '📊',
+        roles: ['admin'],
+      },
+      {
+        name: 'Create Review',
+        path: '/performance/reviews/create',
+        icon: '➕',
+        roles: ['admin'],
+      },
+    ],
+  },
+  {
     name: 'My Profile',
     path: '/profile',
     icon: '👤',
@@ -101,7 +113,7 @@ const sidebarItems: SidebarItem[] = [
 const Sidebar: React.FC = () => {
   const location = useLocation();
   const { user } = useAuth();
-  const [openDropdowns, setOpenDropdowns] = useState<string[]>(['Leave Management']);
+  const [openDropdowns, setOpenDropdowns] = useState<string[]>(['Leave Management', 'Performance']);
 
   const toggleDropdown = (name: string) => {
     setOpenDropdowns(prev =>
