@@ -332,6 +332,7 @@ const AddEmployeePage: React.FC = () => {
           </label>
           <input
             type="tel"
+            maxLength={10}
             value={formData.personalInfo.phone}
             onChange={(e) => handleInputChange('personalInfo', 'phone', e.target.value)}
             className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${

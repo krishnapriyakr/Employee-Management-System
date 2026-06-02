@@ -77,7 +77,8 @@ interface AuthContextType extends AuthState {
   register: (name: string, email: string, password: string, role?: 'admin' | 'employee') => Promise<void>;
   logout: () => void;
   checkAuth: () => Promise<void>;
-  resetRedirect: () => void; // Add this
+  resetRedirect: () => void; 
+  isAdmin: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -194,6 +195,7 @@ const login = async (email: string, password: string): Promise<void> => {
     logout,
     checkAuth,
     resetRedirect,
+    isAdmin: state.user?.role === 'admin',
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
