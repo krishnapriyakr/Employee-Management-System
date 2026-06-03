@@ -103,6 +103,27 @@ const sidebarItems: SidebarItem[] = [
     ],
   },
   {
+    name: 'Documents',
+    path: '#',
+    icon: '📁',
+    roles: ['admin', 'employee'],
+    isDropdown: true,
+    dropdownItems: [
+      {
+        name: 'My Documents',
+        path: '/documents/my',
+        icon: '📄',
+        roles: ['employee', 'admin'],
+      },
+      {
+        name: 'Document Library',
+        path: '/documents/library',
+        icon: '📚',
+        roles: ['admin'],
+      },
+    ],
+  },
+  {
     name: 'My Profile',
     path: '/profile',
     icon: '👤',
