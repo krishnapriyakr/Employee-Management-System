@@ -21,6 +21,7 @@ import LeaveRoutes from './routes/LeaveRoutes';
 import AttendanceRoutes from './routes/AttendanceRoutes';
 import PerformanceRoutes from './routes/PerformanceRoutes';
 import DocumentsRoutes from './routes/DocumentsRoutes';
+import RecruitmentRoutes from './routes/RecruitmentRoutes';
 
 function App() {
   return (
@@ -83,6 +84,15 @@ function App() {
               element={
                 <ProtectedRoute>
                   <DocumentsRoutes />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/*"
+              element={
+                <ProtectedRoute>
+                  <RecruitmentRoutes />
                 </ProtectedRoute>
               }
             />

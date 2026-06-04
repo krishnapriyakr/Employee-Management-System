@@ -124,6 +124,27 @@ const sidebarItems: SidebarItem[] = [
     ],
   },
   {
+    name: 'Recruitment',
+    path: '#',
+    icon: '🎯',
+    roles: ['admin'],
+    isDropdown: true,
+    dropdownItems: [
+      {
+        name: 'Job Postings',
+        path: '/recruitment/admin/jobs',
+        icon: '📋',
+        roles: ['admin'],
+      },
+      {
+        name: 'Applications',
+        path: '/recruitment/admin/applications',
+        icon: '📝',
+        roles: ['admin'],
+      },
+    ],
+  },
+  {
     name: 'My Profile',
     path: '/profile',
     icon: '👤',

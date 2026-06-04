@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '../../../components/layout/Layout';
-import { getAllDocuments, getDocumentStats, downloadDocument, deleteDocument,type Document, formatFileSize, getCategoryIcon, getCategoryLabel, type DocumentStats } from '../../../api/documentsApi';
-import { fetchAllEmployees,type Employee } from '../../../api/employeeApi';
+import { getAllDocuments, getDocumentStats, downloadDocument, deleteDocument, type Document, formatFileSize, getCategoryIcon, getCategoryLabel, type DocumentStats } from '../../../api/documentsApi';
+import { fetchAllEmployees, type Employee } from '../../../api/employeeApi';
+import DocumentUpload from '../DocumentUpload';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,6 +11,7 @@ const DocumentLibraryPage: React.FC = () => {
   const [stats, setStats] = useState<DocumentStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [employees, setEmployees] = useState<Employee[]>([]);
+  const [showUpload, setShowUpload] = useState(false);
   const [filters, setFilters] = useState({
     employeeId: '',
     category: ''
@@ -109,9 +111,32 @@ const DocumentLibraryPage: React.FC = () => {
       <div className="space-y-6">
         {/* Header */}
         <div className="bg-white rounded-xl shadow-sm p-6 border-l-4 border-primary-500">
-          <h1 className="text-2xl font-bold text-gray-800">Document Library</h1>
-          <p className="text-gray-600 mt-1">Manage all employee documents</p>
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-2xl font-bold text-gray-800">Document Library</h1>
+              <p className="text-gray-600 mt-1">Manage all employee documents</p>
+            </div>
+            <button
+              onClick={() => setShowUpload(!showUpload)}
+              className="bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+            >
+              {showUpload ? 'Cancel' : '+ Upload Document'}
+            </button>
+          </div>
         </div>
+
+        {/* Upload Form */}
+        {showUpload && (
+          <DocumentUpload
+            employeeId={filters.employeeId || undefined}
+            onSuccess={() => {
+              setShowUpload(false);
+              fetchData();
+              toast.success('Document uploaded successfully');
+            }}
+            onCancel={() => setShowUpload(false)}
+          />
+        )}
 
         {/* Stats Cards */}
         {stats && (
@@ -136,7 +161,7 @@ const DocumentLibraryPage: React.FC = () => {
           <div className="bg-yellow-50 rounded-lg p-4 border border-yellow-200">
             <h3 className="text-sm font-semibold text-yellow-800 mb-2">⚠️ Documents Expiring Soon</h3>
             <div className="space-y-1">
-              {stats.expiringDocuments.map((doc) => (
+              {stats.expiringDocuments.map((doc: any) => (
                 <p key={doc.id} className="text-sm text-yellow-700">
                   • {doc.title} - {doc.employeeName} (Expires: {formatDate(doc.expiryDate)})
                 </p>
@@ -183,6 +208,16 @@ const DocumentLibraryPage: React.FC = () => {
           <div className="bg-white rounded-xl shadow-sm p-12 text-center">
             <div className="text-6xl mb-4">📄</div>
             <p className="text-gray-500 text-lg">No documents found</p>
+            {showUpload ? (
+              <p className="text-sm text-gray-400 mt-1">Fill the form above to upload a document</p>
+            ) : (
+              <button
+                onClick={() => setShowUpload(true)}
+                className="mt-4 bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 rounded-lg font-medium"
+              >
+                + Upload First Document
+              </button>
+            )}
           </div>
         ) : (
           <div className="bg-white rounded-xl shadow-sm overflow-hidden">
@@ -207,7 +242,7 @@ const DocumentLibraryPage: React.FC = () => {
                           <div className="text-sm font-medium text-gray-900">{doc.title}</div>
                           <div className="text-xs text-gray-500">{doc.fileName}</div>
                         </div>
-                       </td>
+                      </td>
                       <td className="px-6 py-4">
                         <button
                           onClick={() => navigate(`/documents/employee/${doc.employeeId?._id}`)}
@@ -215,13 +250,13 @@ const DocumentLibraryPage: React.FC = () => {
                         >
                           {doc.employeeId?.name || 'Unknown'}
                         </button>
-                       </td>
+                      </td>
                       <td className="px-6 py-4">
                         <span className="inline-flex items-center space-x-1">
                           <span>{getCategoryIcon(doc.category)}</span>
                           <span className="text-sm text-gray-600">{getCategoryLabel(doc.category)}</span>
                         </span>
-                       </td>
+                      </td>
                       <td className="px-6 py-4 text-sm text-gray-500">{formatFileSize(doc.fileSize)}</td>
                       <td className="px-6 py-4 text-sm text-gray-500">{formatDate(doc.createdAt)}</td>
                       <td className="px-6 py-4">
@@ -230,15 +265,22 @@ const DocumentLibraryPage: React.FC = () => {
                             {formatDate(doc.expiryDate)}
                           </span>
                         )}
-                       </td>
+                      </td>
                       <td className="px-6 py-4">
-                        <div className="flex space-x-2">
+                        <div className="flex space-x-3">
                           <button
                             onClick={() => handleDownload(doc._id)}
                             className="text-primary-600 hover:text-primary-800"
                             title="Download"
                           >
                             📥
+                          </button>
+                          <button
+                            onClick={() => navigate(`/documents/employee/${doc.employeeId?._id}`)}
+                            className="text-blue-600 hover:text-blue-800"
+                            title="View Employee"
+                          >
+                            👤
                           </button>
                           <button
                             onClick={() => handleDelete(doc._id, doc.title)}
@@ -248,7 +290,7 @@ const DocumentLibraryPage: React.FC = () => {
                             🗑️
                           </button>
                         </div>
-                       </td>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
