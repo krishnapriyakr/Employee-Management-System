@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { uploadDocument, getCategoryLabel } from '../../api/documentsApi';
+import { fetchAllEmployees,type Employee } from '../../api/employeeApi';
 import { toast } from 'react-toastify';
 
 interface DocumentUploadProps {
@@ -9,7 +10,9 @@ interface DocumentUploadProps {
 }
 
 const DocumentUpload: React.FC<DocumentUploadProps> = ({ employeeId, onSuccess, onCancel }) => {
+  const [employees, setEmployees] = useState<Employee[]>([]);
   const [formData, setFormData] = useState({
+    employeeId: employeeId || '',
     title: '',
     description: '',
     category: 'other',
@@ -17,6 +20,27 @@ const DocumentUpload: React.FC<DocumentUploadProps> = ({ employeeId, onSuccess, 
   });
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [loadingEmployees, setLoadingEmployees] = useState(false);
+
+  useEffect(() => {
+    if (!employeeId) {
+      fetchEmployees();
+    }
+  }, [employeeId]);
+
+  const fetchEmployees = async () => {
+    try {
+      setLoadingEmployees(true);
+      const response = await fetchAllEmployees(1, 100, '', '');
+      if (response.success) {
+        setEmployees(response.data.employees);
+      }
+    } catch (error) {
+      console.error('Failed to fetch employees:', error);
+    } finally {
+      setLoadingEmployees(false);
+    }
+  };
 
   const categories = [
     'id_proof',
@@ -37,8 +61,8 @@ const DocumentUpload: React.FC<DocumentUploadProps> = ({ employeeId, onSuccess, 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!employeeId) {
-      toast.error('Employee ID is required');
+    if (!formData.employeeId) {
+      toast.error('Please select an employee');
       return;
     }
     
@@ -57,7 +81,7 @@ const DocumentUpload: React.FC<DocumentUploadProps> = ({ employeeId, onSuccess, 
     try {
       const uploadFormData = new FormData();
       uploadFormData.append('file', file);
-      uploadFormData.append('employeeId', employeeId);
+      uploadFormData.append('employeeId', formData.employeeId);
       uploadFormData.append('title', formData.title);
       uploadFormData.append('description', formData.description);
       uploadFormData.append('category', formData.category);
@@ -80,6 +104,29 @@ const DocumentUpload: React.FC<DocumentUploadProps> = ({ employeeId, onSuccess, 
       <h2 className="text-lg font-semibold text-gray-800 mb-4">Upload Document</h2>
       
       <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Employee Selection - Only show if employeeId not provided */}
+        {!employeeId && (
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Select Employee *
+            </label>
+            <select
+              value={formData.employeeId}
+              onChange={(e) => setFormData({ ...formData, employeeId: e.target.value })}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500"
+              required
+              disabled={loadingEmployees}
+            >
+              <option value="">Select an employee...</option>
+              {employees.map((emp) => (
+                <option key={emp._id} value={emp._id}>
+                  {emp.personalInfo.firstName} {emp.personalInfo.lastName} - {emp.employmentInfo.department}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Document Title *
