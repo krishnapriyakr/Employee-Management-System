@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '../../../components/layout/Layout';
-import { getAllApplications, getApplicationStats, updateApplicationStatus, downloadResume, Application } from '../../../api/recruitmentApi';
+import { getAllApplications, getApplicationStats, updateApplicationStatus, downloadResume,type Application } from '../../../api/recruitmentApi';
 import { getAllJobs,type Job } from '../../../api/recruitmentApi';
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
