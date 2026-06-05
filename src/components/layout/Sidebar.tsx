@@ -1,11 +1,31 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { 
+  FaTachometerAlt, 
+  FaUsers, 
+  FaCalendarAlt, 
+  FaUmbrellaBeach, 
+  FaStar, 
+  FaFolderOpen, 
+  FaUserCircle,
+  FaChevronDown,
+  FaChevronRight,
+  FaClipboardList,
+  FaPlusCircle,
+  FaChartLine,
+  FaFileAlt,
+  FaRegCalendarAlt,
+  FaMoneyBillWave,
+  FaBriefcase,
+  FaExchangeAlt,
+  FaUserPlus,
+} from 'react-icons/fa';
 
 interface SidebarItem {
   name: string;
   path: string;
-  icon: string;
+  icon: React.ReactNode;
   roles: ('admin' | 'employee')[];
   isDropdown?: boolean;
   dropdownItems?: SidebarItem[];
@@ -15,56 +35,56 @@ const sidebarItems: SidebarItem[] = [
   {
     name: 'Dashboard',
     path: '/dashboard',
-    icon: '📊',
+    icon: <FaTachometerAlt className="h-5 w-5" />,
     roles: ['admin', 'employee'],
   },
   {
     name: 'Employees',
     path: '/employees',
-    icon: '👥',
+    icon: <FaUsers className="h-5 w-5" />,
     roles: ['admin'],
   },
   {
     name: 'Attendance',
     path: '/attendance/my-attendance',
-    icon: '📅',
+    icon: <FaRegCalendarAlt className="h-5 w-5" />,
     roles: ['admin', 'employee'],
   },
   {
     name: 'Leave Management',
     path: '#',
-    icon: '🏖️',
+    icon: <FaUmbrellaBeach className="h-5 w-5" />,
     roles: ['admin', 'employee'],
     isDropdown: true,
     dropdownItems: [
       {
         name: 'My Leaves',
         path: '/leave/my-leaves',
-        icon: '📋',
+        icon: <FaClipboardList className="h-4 w-4" />,
         roles: ['employee', 'admin'],
       },
       {
         name: 'Apply Leave',
         path: '/leave/apply',
-        icon: '✏️',
+        icon: <FaPlusCircle className="h-4 w-4" />,
         roles: ['employee', 'admin'],
       },
       {
         name: 'Leave Balance',
         path: '/leave/balance',
-        icon: '💰',
+        icon: <FaMoneyBillWave className="h-4 w-4" />,
         roles: ['employee', 'admin'],
       },
       {
         name: 'Leave Requests',
         path: '/leave/requests',
-        icon: '📋',
+        icon: <FaClipboardList className="h-4 w-4" />,
         roles: ['admin'],
       },
       {
         name: 'Leave Statistics',
         path: '/leave/statistics',
-        icon: '📈',
+        icon: <FaChartLine className="h-4 w-4" />,
         roles: ['admin'],
       },
     ],
@@ -72,32 +92,32 @@ const sidebarItems: SidebarItem[] = [
   {
     name: 'Performance',
     path: '#',
-    icon: '⭐',
+    icon: <FaStar className="h-5 w-5" />,
     roles: ['admin', 'employee'],
     isDropdown: true,
     dropdownItems: [
       {
         name: 'My Reviews',
         path: '/performance/my-reviews',
-        icon: '📝',
+        icon: <FaClipboardList className="h-4 w-4" />,
         roles: ['employee', 'admin'],
       },
       {
         name: 'My Goals',
         path: '/performance/my-goals',
-        icon: '🎯',
+        icon: <FaStar className="h-4 w-4" />,
         roles: ['employee', 'admin'],
       },
       {
         name: 'Performance Dashboard',
         path: '/performance/admin/dashboard',
-        icon: '📊',
+        icon: <FaChartLine className="h-4 w-4" />,
         roles: ['admin'],
       },
       {
         name: 'Create Review',
         path: '/performance/reviews/create',
-        icon: '➕',
+        icon: <FaPlusCircle className="h-4 w-4" />,
         roles: ['admin'],
       },
     ],
@@ -105,20 +125,20 @@ const sidebarItems: SidebarItem[] = [
   {
     name: 'Documents',
     path: '#',
-    icon: '📁',
+    icon: <FaFolderOpen className="h-5 w-5" />,
     roles: ['admin', 'employee'],
     isDropdown: true,
     dropdownItems: [
       {
         name: 'My Documents',
         path: '/documents/my',
-        icon: '📄',
+        icon: <FaFileAlt className="h-4 w-4" />,
         roles: ['employee', 'admin'],
       },
       {
         name: 'Document Library',
         path: '/documents/library',
-        icon: '📚',
+        icon: <FaFolderOpen className="h-4 w-4" />,
         roles: ['admin'],
       },
     ],
@@ -126,28 +146,67 @@ const sidebarItems: SidebarItem[] = [
   {
     name: 'Recruitment',
     path: '#',
-    icon: '🎯',
+    icon: <FaBriefcase className="h-5 w-5" />,
     roles: ['admin'],
     isDropdown: true,
     dropdownItems: [
       {
         name: 'Job Postings',
         path: '/recruitment/admin/jobs',
-        icon: '📋',
+        icon: <FaClipboardList className="h-4 w-4" />,
         roles: ['admin'],
       },
       {
         name: 'Applications',
         path: '/recruitment/admin/applications',
-        icon: '📝',
+        icon: <FaFileAlt className="h-4 w-4" />,
         roles: ['admin'],
       },
     ],
   },
   {
+  name: 'Shifts',
+  path: '#',
+  icon: <FaCalendarAlt className="h-5 w-5" />,
+  roles: ['admin', 'employee'],
+  isDropdown: true,
+  dropdownItems: [
+    {
+      name: 'My Shifts',
+      path: '/shifts/my-shifts',
+      icon: <FaRegCalendarAlt className="h-4 w-4" />,
+      roles: ['employee', 'admin'],
+    },
+    {
+      name: 'Assign Shift',
+      path: '/shifts/assign',
+      icon: <FaUserPlus className="h-4 w-4" />,
+      roles: ['admin'],
+    },
+    {
+      name: 'Shift Calendar',
+      path: '/shifts/calendar',
+      icon: <FaCalendarAlt className="h-4 w-4" />,
+      roles: ['admin'],
+    },
+    {
+      name: 'Shift Templates',
+      path: '/shifts/templates',
+      icon: <FaClipboardList className="h-4 w-4" />,
+      roles: ['admin'],
+    },
+    {
+      name: 'Swap Requests',
+      path: '/shifts/swaps',
+      icon: <FaExchangeAlt className="h-4 w-4" />,
+      roles: ['employee', 'admin'],
+    },
+  ],
+},
+  {
     name: 'My Profile',
     path: '/profile',
-    icon: '👤',
+    icon: <FaUserCircle className="h-5 w-5" />,
     roles: ['admin', 'employee'],
   },
 ];
@@ -155,7 +214,8 @@ const sidebarItems: SidebarItem[] = [
 const Sidebar: React.FC = () => {
   const location = useLocation();
   const { user } = useAuth();
-  const [openDropdowns, setOpenDropdowns] = useState<string[]>(['Leave Management', 'Performance']);
+  // ✅ Start with EMPTY array - all dropdowns CLOSED by default
+  const [openDropdowns, setOpenDropdowns] = useState<string[]>([]);
 
   const toggleDropdown = (name: string) => {
     setOpenDropdowns(prev =>
@@ -201,14 +261,11 @@ const Sidebar: React.FC = () => {
                     <span className="text-lg">{item.icon}</span>
                     <span className="font-medium">{item.name}</span>
                   </div>
-                  <svg
-                    className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
+                  {isOpen ? (
+                    <FaChevronDown className="h-4 w-4" />
+                  ) : (
+                    <FaChevronRight className="h-4 w-4" />
+                  )}
                 </button>
                 
                 {isOpen && (

@@ -22,6 +22,7 @@ import AttendanceRoutes from './routes/AttendanceRoutes';
 import PerformanceRoutes from './routes/PerformanceRoutes';
 import DocumentsRoutes from './routes/DocumentsRoutes';
 import RecruitmentRoutes from './routes/RecruitmentRoutes';
+import ShiftRoutes from './routes/ShiftRoutes';
 
 function App() {
   return (
@@ -89,10 +90,19 @@ function App() {
             />
 
             <Route
-              path="/*"
+              path="/recruitment/*"
               element={
                 <ProtectedRoute>
                   <RecruitmentRoutes />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/shifts/*"
+              element={
+                <ProtectedRoute>
+                  <ShiftRoutes />
                 </ProtectedRoute>
               }
             />
