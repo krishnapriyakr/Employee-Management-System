@@ -23,6 +23,7 @@ import PerformanceRoutes from './routes/PerformanceRoutes';
 import DocumentsRoutes from './routes/DocumentsRoutes';
 import RecruitmentRoutes from './routes/RecruitmentRoutes';
 import ShiftRoutes from './routes/ShiftRoutes';
+import PayrollRoutes from './routes/PayrollRoutes';
 
 function App() {
   return (
@@ -112,6 +113,15 @@ function App() {
               element={
                 <ProtectedRoute>
                   <MyProfilePage />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/payroll/*"
+              element={
+                <ProtectedRoute>
+                  <PayrollRoutes />
                 </ProtectedRoute>
               }
             />

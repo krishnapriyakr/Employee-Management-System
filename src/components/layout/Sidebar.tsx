@@ -20,6 +20,10 @@ import {
   FaBriefcase,
   FaExchangeAlt,
   FaUserPlus,
+  FaRupeeSign,
+  FaUniversity,
+  FaBuilding,
+  FaCalculator,
 } from 'react-icons/fa';
 
 interface SidebarItem {
@@ -202,7 +206,40 @@ const sidebarItems: SidebarItem[] = [
       roles: ['employee', 'admin'],
     },
   ],
-},
+  },
+  {
+      name: 'Payroll',
+      path: '#',
+      icon: <FaMoneyBillWave className="h-5 w-5" />,
+      roles: ['admin', 'employee'],
+      isDropdown: true,
+      dropdownItems: [
+        {
+          name: 'My Payroll',
+          path: '/payroll/my-payroll',
+          icon: <FaRupeeSign className="h-4 w-4" />,
+          roles: ['employee', 'admin'],
+        },
+        {
+          name: 'Bank Details',
+          path: '/payroll/bank-details',
+          icon: <FaUniversity className="h-4 w-4" />,
+          roles: ['employee', 'admin'],
+        },
+        {
+          name: 'Salary Structures',
+          path: '/payroll/salary-structures',
+          icon: <FaBuilding className="h-4 w-4" />,
+          roles: ['admin'],
+        },
+        {
+          name: 'Process Payroll',
+          path: '/payroll/process',
+          icon: <FaCalculator className="h-4 w-4" />,
+          roles: ['admin'],
+        },
+      ],
+    },
   {
     name: 'My Profile',
     path: '/profile',
