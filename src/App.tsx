@@ -24,6 +24,7 @@ import DocumentsRoutes from './routes/DocumentsRoutes';
 import RecruitmentRoutes from './routes/RecruitmentRoutes';
 import ShiftRoutes from './routes/ShiftRoutes';
 import PayrollRoutes from './routes/PayrollRoutes';
+import ReportRoutes from './routes/ReportRoutes';
 
 function App() {
   return (
@@ -122,6 +123,15 @@ function App() {
               element={
                 <ProtectedRoute>
                   <PayrollRoutes />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/reports/*"
+              element={
+                <ProtectedRoute>
+                  <ReportRoutes />
                 </ProtectedRoute>
               }
             />

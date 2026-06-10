@@ -239,7 +239,35 @@ const sidebarItems: SidebarItem[] = [
           roles: ['admin'],
         },
       ],
+  },
+    {
+      name: 'Reports',
+      path: '#',
+      icon: <FaChartLine className="h-5 w-5" />,
+      roles: ['admin'],
+      isDropdown: true,
+      dropdownItems: [
+        {
+          name: 'Attendance Report',
+          path: '/reports/attendance',
+          icon: <FaCalendarAlt className="h-4 w-4" />,
+          roles: ['admin'],
+        },
+        {
+          name: 'Leave Report',
+          path: '/reports/leave',
+          icon: <FaUmbrellaBeach className="h-4 w-4" />,
+          roles: ['admin'],
+        },
+        {
+          name: 'Payroll Report',
+          path: '/reports/payroll',
+          icon: <FaMoneyBillWave className="h-4 w-4" />,
+          roles: ['admin'],
+        },
+      ],
     },
+
   {
     name: 'My Profile',
     path: '/profile',

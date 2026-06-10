@@ -4,7 +4,8 @@ import Layout from '../../components/layout/Layout';
 import Breadcrumb from '../../components/ui/Breadcrumb';
 import { toast } from 'react-toastify';
 import { deleteEmployee, fetchAllEmployees, type Employee } from '../../api/employeeApi';
-
+import { FaFileExcel, FaFilePdf } from 'react-icons/fa';
+import { exportEmployeesExcel, exportEmployeesPDF } from '../../api/exportApi';
 const EmployeeListPage: React.FC = () => {
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -131,6 +132,19 @@ const EmployeeListPage: React.FC = () => {
               <span>+</span>
               <span>Add New Employee</span>
             </Link>
+             <button
+                onClick={exportEmployeesExcel}
+                className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg flex items-center gap-2"
+              >
+                <FaFileExcel /> Excel
+              </button>
+              <button
+                onClick={exportEmployeesPDF}
+                className="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-lg flex items-center gap-2"
+              >
+                <FaFilePdf /> PDF
+            </button>
+
           </div>
         </div>
 
