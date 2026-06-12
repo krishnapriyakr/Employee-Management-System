@@ -39,7 +39,7 @@ export interface PersonalInfo {
 }
 
 export interface EmploymentInfo {
-  employeeId: string;
+  employeeId?: string;
   department: string;
   position: string;
   salary: number;
@@ -122,6 +122,7 @@ export interface CreateEmployeeData {
     profileImage?: string;
   };
   employmentInfo: {
+    employeeId?: string;
     department: string;
     position: string;
     salary: number;

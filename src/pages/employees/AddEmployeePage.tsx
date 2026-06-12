@@ -604,9 +604,10 @@ const AddEmployeePage: React.FC = () => {
           </label>
           <input
             type="tel"
+            maxLength={10}
             value={formData.emergencyContact.phone}
             onChange={(e) => handleInputChange('emergencyContact', 'phone', e.target.value)}
-            className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${
+            className={`w-full md:w-1/2 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${
               errors.emergencyPhone ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="Enter phone number"
