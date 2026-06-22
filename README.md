@@ -1,2 +1,2 @@
-# Employee-Management-System
-This project demonstrates how RBAC improves system security by ensuring users can access only features permitted by their roles. Built using the MERN stack, the Employee Management System reduces manual work, improves data accuracy, and provides a secure way to manage employee information
+Frontend for Employee Management System built with React and TypeScript. Includes role-based access for admins and employees, employee management, leave tracking, attendance, performance reviews, document management, recruitment, shift scheduling, payroll, email notifications, and report exports (Excel/PDF). Uses Tailwind CSS, Context API, and React Router.
+
